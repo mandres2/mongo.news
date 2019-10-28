@@ -1,0 +1,74 @@
+<body class="container">
+
+  <nav class="navbar fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Mongo Scraper</a>
+    <a class="navbar-brand" href="/">Home</a>
+    <a class="navbar-brand" href="/articles/saved">Saved Articles</a>
+    <button class="btn float-left" id="clear-articles">Clear Articles</button>
+  </nav>
+
+  <div class="bg"></div>
+  <div class="jumbotron jumbotron-fluid">
+    <h1>Saved Articles</h1>
+    <h4>Your Saved Articles</h4>
+  </div>
+
+  <br>
+
+  {{#each articles}}
+  <div class="card">
+    <div class="card-header">
+      <h6><a class="article-link" target="_blank" rel="noopener noreferrer" href="{{this.link}}">{{this.title}}</a>
+
+        {{#unless saved}}
+        <a class="btn mt-auto btn-light btn-outline-dark float-right save" data-id="{{this._id}}">Save Article</a></h6>
+      {{/unless}}
+
+      <a class="btn mt-auto btn-light btn-outline-dark float-right delete-from-saved" data-id="{{this._id}}">Unsave</a>
+
+      <button type="button" data-title={{this.title}} data-id={{this._id}}
+        class="btn mt-auto btn-light btn-outline-dark float-right add-note" data-toggle="modal"
+        data-target="#notesModal{{this._id}}">Article Notes</button>
+
+    </div>
+    <div class="card-body flex-column">
+      <p class="card-text">{{this.teaser}}</p>
+    </div>
+  </div>
+
+  <!-- Notes Modal -->
+
+  <div id="notesModal{{this._id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="note-header"><strong>Add note for:&nbsp;</strong>{{this.title}}</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <input type="text" id="noteTitleInput{{this._id}}" placeholder="Enter Title">&emsp;
+          <input type="text" id="noteBodyInput{{this._id}}" placeholder="Enter Body">
+          <br>
+          <br>
+          {{#each note}}
+          {{debug}}
+          <div id="noteArea{{this._id}}">
+            <div class="row">
+              {{debug}}
+              <p id="note-title">{{this.noteTitle}}</p><span>
+                <p id="note-body">{{this.noteBody}}</p>
+              </span>&emsp;
+              <button class="btn btn-danger btn-sm note-delete" id="{{this._id}}">X</button>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary save-note" data-id="{{this._id}}">Save Note</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{/each}}
