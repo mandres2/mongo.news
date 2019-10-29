@@ -3,7 +3,6 @@ var express = require("express");
 var router = express.Router();
 var db = require("../models");
 
-
 // scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
@@ -44,24 +43,29 @@ router.get("/articles/saved/", function (req, res) {
     });
 });
 
+// ------------------------------------------ Scrape ------------------------------------------ //
 
 // Route for scraping the NPR website (Scrape New Articles button)
 router.get("/scrape", function (req, res) {
   // First, grab the body of the html with axios
+  console.log(req);
   axios.get("https://www.npr.org/").then(function (response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
+
+    console.log($);
+    console.log(response);
 
     // grabs every h3 within an article tag, and do the following:
     $("h3.title").each(function (i, element) {
       // Save an empty result object
       var result = {};
 
-      var title = $(element).parent().text();
-      var link = $(element).parent("a").attr("href");
-      var teaser = $(element).parent("a").siblings("a").children("p").text();
+      //var title = $(element).parent().text();
+      //var link = $(element).parent("a").attr("href");
+      //var teaser = $(element).parent("a").siblings("a").children("p").text();
 
-      // Add the text and href of every link, and the teaser, and save them as properties of the result object
+      // Add text and href of every link, and the teaser, and save them as properties of the result object
       result.title = $(this)
         .parent("a")
         .text();
@@ -91,7 +95,7 @@ router.get("/scrape", function (req, res) {
   });
 });
 
-//delete route to remove a single article from index
+// Delete route to remove a single article from index
 router.delete("/deleteArticle/:id", function (req, res) {
   db.Article.remove({
       _id: req.params.id
@@ -112,7 +116,7 @@ router.get("/clear-articles", function (req, res) {
     if (error) {
       res.writeContinue(err);
     } else {
-      // Otherwise, send the mongojs response to the browser
+      // Otherwise, send the mongo.js response to the browser
       // This will fire off the success function of the ajax request
       console.log(response);
       res.send(response);

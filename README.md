@@ -42,17 +42,6 @@
 
 ## How To Use The Application:
 
-<h2></h2>
-
-![alt text]()
-
-<br>
-
-<h2>college.leap sign-in tour</h2>
-
-![alt text]()
-
-
 ## Deployment
 
 * <b> 'git push origin master' & 'git push heroku master' the files into GitHub Profile and Heroku respectively.</b>

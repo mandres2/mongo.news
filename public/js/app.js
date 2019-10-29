@@ -20,7 +20,7 @@ $(document).ready(function () {
   $("#scrape").on("click", function (event) {
     event.preventDefault();
     $.ajax({
-      url: "/scrape/",
+      url: "/scrape",
       type: "GET",
       success: function (response) {
         // window.location.href = "/articles/saved/";
@@ -73,7 +73,7 @@ $(document).ready(function () {
       // On a successful call, clear the #results section
       success: function (response) {
         $("#results").empty();
-        // window.location.href = "/";
+        window.location.href = "/";
         location.reload();
       }
     });
@@ -114,7 +114,7 @@ $(document).ready(function () {
       // If that API call succeeds, add the title and a delete button for the note to the page
       .then(function (dbArticle) {
         location.reload();
-        // window.location.href = "/articles/saved/";
+        window.location.href = "/articles/saved/";
 
       });
   });

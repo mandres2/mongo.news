@@ -5,6 +5,7 @@ var mongoose = require("mongoose");
 var exphbs = require("express-handlebars");
 var articleRoutes = require("./routes/article");
 var indexRoutes = require("./routes/index");
+var savedArticles = require("./routes/savedArticles");
 var path = require("path");
 
 // Turn on Debugging so one can see what is being sent to MongoDB
@@ -29,8 +30,8 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 // Create a public static folder
-// app.use(express.static("public"));
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static("public"));
+// app.use(express.static(path.join(__dirname, "/public")));
 
 // Set handlebars as the default template engine:
 app.engine("handlebars", exphbs({
@@ -54,7 +55,7 @@ mongoose.connect("mongodb://localhost/mongoHeadlines", {
 // Defining which routes to use
 app.use("/", indexRoutes);
 app.use("/articles", articleRoutes);
-
+app.use("/articles/saved", savedArticles);
 
 // Server Start
 app.listen(PORT, function () {

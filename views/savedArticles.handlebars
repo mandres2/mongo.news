@@ -1,7 +1,7 @@
 <body class="container">
 
   <nav class="navbar fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Mongo Scraper</a>
+    <a class="navbar-brand" href="#">mongo.news</a>
     <a class="navbar-brand" href="/">Home</a>
     <a class="navbar-brand" href="/articles/saved">Saved Articles</a>
     <button class="btn float-left" id="clear-articles">Clear Articles</button>
@@ -15,16 +15,18 @@
 
   <br>
 
+  {{!-- each articles for main.js --}}
   {{#each articles}}
   <div class="card">
     <div class="card-header">
       <h6><a class="article-link" target="_blank" rel="noopener noreferrer" href="{{this.link}}">{{this.title}}</a>
 
+        {{!-- unless saved for main.js --}}
         {{#unless saved}}
         <a class="btn mt-auto btn-light btn-outline-dark float-right save" data-id="{{this._id}}">Save Article</a></h6>
       {{/unless}}
 
-      <a class="btn mt-auto btn-light btn-outline-dark float-right delete-from-saved" data-id="{{this._id}}">Unsave</a>
+      <a class="btn mt-auto btn-light btn-outline-dark float-right delete-from-saved" data-id="{{this._id}}">Delete</a>
 
       <button type="button" data-title={{this.title}} data-id={{this._id}}
         class="btn mt-auto btn-light btn-outline-dark float-right add-note" data-toggle="modal"
