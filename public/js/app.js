@@ -82,7 +82,7 @@ $(document).ready(function () {
   //-----------------------NOTES-----------------------//
 
   // Article Notes event handler - show the title of the article you are adding a note to in the modal
-  $(document).on('click', '.add-note', function () {
+  $(document).on("click", ".add-note", function (event) {
     event.preventDefault();
     // var title = $(this).attr("data-title");
     var title = $(this).data("title");

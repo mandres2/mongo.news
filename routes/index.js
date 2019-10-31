@@ -108,7 +108,7 @@ router.delete("/deleteArticle/:id", function (req, res) {
     });
 });
 
-// Clear the DB
+// Clear the database
 router.get("/clear-articles", function (req, res) {
   // Remove every note from the notes collection
   db.Article.remove({}, function (error, response) {

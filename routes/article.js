@@ -81,7 +81,7 @@ router.post("/save-note/:id", function (req, res) {
           note: dbNote._id
         }
       }, {
-        new: true
+        new: true,
       }).populate("note");
     })
     // If the Article was updated successfully, send back article and its corresponding notes to the client
