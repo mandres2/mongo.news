@@ -28,7 +28,7 @@
 
       <a class="btn mt-auto btn-light btn-outline-dark float-right delete-from-saved" data-id="{{this._id}}">Delete</a>
 
-      <button type="button" data-title={{this.title}} data-id={{this._id}}
+      <button type="button" data-title="{{this.title}}" data-id={{this._id}}
         class="btn mt-auto btn-light btn-outline-dark float-right add-note" data-toggle="modal"
         data-target="#notesModal{{this._id}}">Article Notes</button>
 
@@ -53,10 +53,10 @@
           <br>
           <br>
           {{#each note}}
-          {{debug}}
+          {{!-- {{debug}} --}}
           <div id="noteArea{{this._id}}">
             <div class="row">
-              {{debug}}
+              {{!-- {{debug}} --}}
               <p id="note-title">{{this.noteTitle}}</p><span>
                 <p id="note-body">{{this.noteBody}}</p>
               </span>&emsp;

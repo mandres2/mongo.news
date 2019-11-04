@@ -113,9 +113,9 @@
 <br>
 :heavy_check_mark: 10.28 - working on server.js + routes + models
 <br>
-:heavy_check_mark: 10.29 - Front-end/Debugging
+:heavy_check_mark: 10.29 - Front-end/Debugging -> Fixed rendering articles and deleting articles route.
 <br>
-:heavy_check_mark: 10.30 - Front-end/Debugging
+:heavy_check_mark: 10.30 - Front-end/Debugging -> Working on fixing notes functionality.
 <br>
 :heavy_check_mark: 10.31 - Further testing and debugging of application
 <br>

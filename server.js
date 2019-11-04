@@ -55,7 +55,11 @@ mongoose.connect("mongodb://localhost/mongoHeadlines", {
 // Defining which routes to use
 app.use("/", indexRoutes);
 app.use("/articles", articleRoutes);
+
+// FIXME: It's not hitting the id. This is possibly why Notes are not appending onto the saved articles page.
+// app.use("/articles/articles/:id", articleRoutes);
 app.use("/articles/saved", savedArticles);
+
 
 // Server Start
 app.listen(PORT, function () {

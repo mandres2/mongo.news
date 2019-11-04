@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  // Jumbotron parallax code
+  // Jumbotron code
   var jumboHeight = $(".jumbotron").outerHeight();
 
   function parallax() {
@@ -11,8 +11,6 @@ $(document).ready(function () {
   $(window).scroll(function (e) {
     parallax();
   });
-
-  // Begin client side js
 
   //-----------------------ARTICLES-----------------------//
 
@@ -87,12 +85,46 @@ $(document).ready(function () {
     // var title = $(this).attr("data-title");
     var title = $(this).data("title");
     console.log(title);
-    var id = $(this).attr("data-id");
-    $("#articleTitle" + id).text(title); // this returns only the first word - have tried several variations of escaping and combinations of quotes
-    //https://stackoverflow.com/questions/26848247/variable-from-attribute-only-displays-the-first-word
+    var id = $(this).attr("id");
+    $("#articleTitle" + id).text(title);
+
+    // I added this code recently so that the notes will append on the savedArticles Page.
+    $.ajax({
+        method: "GET",
+        url: "/articles/" + id
+      })
+      // With that done, add the note information to the page
+      .then(function (data) {
+        console.log(data);
+        // The title of the article
+        $("#notes").append("<h2>" + data.title + "</h2>");
+        // An input to enter a new title
+        $("#notes").append("<input id='noteTitleInput' name='title' >");
+        // A textarea to add a new note body
+        $("#notes").append("<textarea id='noteBodyInput' name='body'></textarea>");
+        // A button to submit a new note, with the id of the article saved to it
+        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+
+        // If there's a note in the article
+        if (data.note) {
+          // Place the title of the note in the title input
+          $("#noteTitleInput").val(data.note.title);
+          // Place the body of the note in the body textarea
+          $("#noteBodyInput").val(data.note.body);
+        }
+
+        // try show/hide method
+
+      });
+
+    $(".save-note").click(function () {
+      $("#notes").show();
+    });
+
+
   });
 
-  // When the saveNote button is clicked
+  // When the save Note button is clicked (class reference is: save-note)
   $("body").on("click", ".save-note", function (event) {
     event.preventDefault();
     // Grab the id associated with the article from the Save Note button and put it in thisId
@@ -115,8 +147,13 @@ $(document).ready(function () {
       .then(function (dbArticle) {
         location.reload();
         window.location.href = "/articles/saved/";
-
       });
+
+
+
+    $(".save-note").click(function () {
+      $("#notes").hide();
+    });
   });
 
   // When user clicks the delete button for a note
@@ -126,7 +163,7 @@ $(document).ready(function () {
     var thisId = $(event.target).attr("id");
     console.log("Delete on click event - thisID: " + thisId);
 
-    // Make an AJAX GET request to delete the specific note
+    // Make an AJAX POST request to delete the specific note
     $.ajax({
       // type: "GET",
       type: "POST",
